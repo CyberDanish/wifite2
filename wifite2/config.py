@@ -39,7 +39,7 @@ class Configuration(object):
 
         cls.kill_conflicting_processes = False
 
-        cls.scan_time = 0 # Time to wait before attacking all targets
+        cls.scan_time = 0 # Time to wait before attacking all targets - optimized for fast scanning
 
         cls.tx_power = 0 # Wifi transmit power (0 is default)
         cls.interface = None
@@ -52,7 +52,7 @@ class Configuration(object):
         cls.show_bssids = False # Show BSSIDs in targets list
         cls.random_mac = False # Should generate a random Mac address at startup.
         cls.no_deauth = False # Deauth hidden networks & WPA handshake targets
-        cls.num_deauths = 3 # Number of deauth packets to send to each target (faster capture).
+        cls.num_deauths = 5 # Optimized: Increased from 3 to 5 for more effective capture
 
         cls.encryption_filter = ['WEP', 'WPA', 'WPS']
 
@@ -65,28 +65,28 @@ class Configuration(object):
         # WEP variables
         cls.wep_filter = False # Only attack WEP networks
         cls.wep_pps = 600 # Packets per second
-        cls.wep_timeout = 300 # Seconds to wait before failing
-        cls.wep_crack_at_ivs = 10000 # Minimum IVs to start cracking
+        cls.wep_timeout = 240 # Optimized: Reduced from 300 to 240 seconds for faster cracking
+        cls.wep_crack_at_ivs = 8000 # Optimized: Reduced from 10000 to 8000 IVs for faster cracking
         cls.require_fakeauth = False
-        cls.wep_restart_stale_ivs = 11 # Seconds to wait before restarting
+        cls.wep_restart_stale_ivs = 8 # Optimized: Reduced from 11 to 8 seconds for faster restart
                                                  # Aireplay if IVs don't increaes.
                                                  # '0' means never restart.
-        cls.wep_restart_aircrack = 30  # Seconds to give aircrack to crack
+        cls.wep_restart_aircrack = 20  # Optimized: Reduced from 30 to 20 seconds for faster cracking
                                                  # before restarting the process.
-        cls.wep_crack_at_ivs = 10000   # Number of IVS to start cracking
+        cls.wep_crack_at_ivs = 8000   # Optimized: Reduced from 10000 IVs
         cls.wep_keep_ivs = False       # Retain .ivs files across multiple attacks.
 
         # WPA variables
         cls.wpa_filter = False # Only attack WPA networks
-        cls.wpa_deauth_timeout = 7 # Wait time between deauths
-        cls.wpa_attack_timeout = 180 # Wait time before failing (default: 3 min)
+        cls.wpa_deauth_timeout = 5 # Optimized: Reduced from 7 to 5 seconds for faster deauth
+        cls.wpa_attack_timeout = 120 # Optimized: Reduced from 180 to 120 seconds for faster attacks
         cls.wpa_handshake_dir = 'hs' # Dir to store handshakes
         cls.wpa_strip_handshake = False # Strip non-handshake packets
         cls.ignore_old_handshakes = False # Always fetch a new handshake
 
         # PMKID variables
         cls.use_pmkid_only = False  # Only use PMKID Capture+Crack attack
-        cls.pmkid_timeout = 30  # Time to wait for PMKID capture
+        cls.pmkid_timeout = 20  # Optimized: Reduced from 30 to 20 seconds for faster PMKID capture
 
         # Default dictionary for cracking
         cls.cracked_file = 'cracked.txt'
@@ -113,9 +113,9 @@ class Configuration(object):
         cls.wps_pixie   = True
         cls.wps_pin     = True
         cls.wps_ignore_lock = False  # Skip WPS PIN attack if AP is locked.
-        cls.wps_pixie_timeout = 120      # Seconds to wait for PIN before WPS Pixie attack fails
-        cls.wps_fail_threshold = 50      # Max number of failures
-        cls.wps_timeout_threshold = 50   # Max number of timeouts
+        cls.wps_pixie_timeout = 90      # Optimized: Reduced from 120 to 90 seconds for faster pixie dust
+        cls.wps_fail_threshold = 40      # Optimized: Reduced from 50 to 40 for faster timeout
+        cls.wps_timeout_threshold = 40   # Optimized: Reduced from 50 to 40 for faster timeout
 
         # Commands
         cls.show_cracked = False

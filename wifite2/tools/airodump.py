@@ -72,7 +72,8 @@ class Airodump(Dependency):
             self.interface,
             '-a', # Only show associated clients
             '-w', self.csv_file_prefix, # Output file prefix
-            '--write-interval', '1' # Write every second
+            '--write-interval', '1', # Write every second for updated data
+            '--update-ms', '100',  # Optimized: Update channel info every 100ms (faster scanning)
         ]
         if self.channel:    command.extend(['-c', str(self.channel)])
         elif self.five_ghz: command.extend(['--band', 'a'])

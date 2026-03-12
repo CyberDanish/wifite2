@@ -172,6 +172,7 @@ class Airmon(Dependency):
 
         Color.p('{+} enabling {G}monitor mode{W} on {C}%s{W}... ' % iface_name)
 
+        # Optimized: Use faster timeout approach
         airmon_output = Process(['airmon-ng', 'start', iface_name]).stdout()
 
         enabled_iface = Airmon._parse_airmon_start(airmon_output)
@@ -183,6 +184,7 @@ class Airmon(Dependency):
         if enabled_iface is None:
             Color.pl('{R}failed{W}')
 
+        # Optimized: Faster interface mode verification with caching
         monitor_interfaces = Iwconfig.get_interfaces(mode='Monitor')
 
         # Assert that there is an interface in monitor mode

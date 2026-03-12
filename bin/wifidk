@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+# Created by @CyberDanish
+
+from wifite2 import __main__
+__main__.entry_point()

@@ -14,7 +14,7 @@ class AttackAll(object):
     @classmethod
     def attack_multiple(cls, targets):
         '''
-        Attacks all given `targets` (list[wifidk.model.target]) until user interruption.
+        Attacks all given `targets` (list[wifite2.model.target]) until user interruption.
         Returns: Number of targets that were attacked (int)
         '''
         if any(t.wps for t in targets) and not AttackWPS.can_attack_wps():
@@ -42,7 +42,7 @@ class AttackAll(object):
     @classmethod
     def attack_single(cls, target, targets_remaining):
         '''
-        Attacks a single `target` (wifidk.model.target).
+        Attacks a single `target` (wifite2.model.target).
         Returns: True if attacks should continue, False otherwise.
         '''
 

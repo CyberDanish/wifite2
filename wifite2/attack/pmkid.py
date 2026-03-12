@@ -155,7 +155,7 @@ class AttackPMKID(Attack):
                     'because there is no {R}wordlist{O} (re-run with {C}--dict{O})')
 
             # TODO: Uncomment once --crack is updated to support recracking PMKIDs.
-            #Color.pl('{!} {O}Run Wifidk with the {R}--crack{O} and {R}--dict{O} options to try again.')
+            #Color.pl('{!} {O}Run Wifite2 with the {R}--crack{O} and {R}--dict{O} options to try again.')
 
             key = None
         else:

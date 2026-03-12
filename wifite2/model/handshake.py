@@ -23,7 +23,7 @@ class Handshake(object):
             Sets this instances 'bssid' and 'essid' instance fields.
         '''
 
-        # We can get BSSID from the .cap filename if Wifidk captured it.
+        # We can get BSSID from the .cap filename if Wifite2 captured it.
         # ESSID is stripped of non-printable characters, so we can't rely on that.
         if self.bssid is None:
             hs_regex = re.compile(r'^.*handshake_\w+_([0-9A-F\-]{17})_.*\.cap$', re.IGNORECASE)

@@ -38,6 +38,52 @@ chmod +x install.sh
 sudo ./install.sh
 ```
 
+Troubleshooting - "Command Not Found" Error on Kali Linux
+----------------------------------------------------------
+
+If you get "aircrack-ng not found" or "command not found" errors, follow these steps:
+
+### Step 1: Install Aircrack-ng Suite (REQUIRED)
+```bash
+sudo apt update
+sudo apt install -y aircrack-ng
+```
+
+### Step 2: Install Other Required Tools
+```bash
+sudo apt install -y macchanger tshark python3 python3-pip
+```
+
+### Step 3: Run with Python3 and Sudo
+```bash
+# Direct run:
+sudo python3 Wifite2.py
+
+# Or after installation:
+sudo wifite2
+```
+
+### Step 4: Check Tools are Installed
+```bash
+which airmon-ng
+which airodump-ng
+which aircrack-ng
+which aireplay-ng
+```
+If any show "not found", reinstall aircrack-ng:
+```bash
+sudo apt remove aircrack-ng
+sudo apt install -y aircrack-ng
+```
+
+### Step 5: Fast Scanning Setup (For Speed Optimization)
+Enable monitor mode manually (if auto-detect fails):
+```bash
+sudo airmon-ng start wlan0
+# Note the new interface (usually wlan0mon)
+sudo python3 Wifite2.py -i wlan0mon
+```
+
 Why Wifite2
 ----------
 * Zero-friction workflow: scan -> capture -> validate -> crack

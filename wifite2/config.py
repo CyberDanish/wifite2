@@ -293,13 +293,13 @@ class Configuration(object):
         if args.wordlist:
             if not os.path.exists(args.wordlist):
                 cls.wordlist = None
-                Color.pl('{+} {C}option:{O} wordlist {R}%s{O} was not found, wifidk will NOT attempt to crack handshakes' % args.wordlist)
+                Color.pl('{+} {C}option:{O} wordlist {R}%s{O} was not found, wifite2 will NOT attempt to crack handshakes' % args.wordlist)
             elif os.path.isfile(args.wordlist):
                 cls.wordlist = args.wordlist
                 Color.pl('{+} {C}option:{W} using wordlist {G}%s{W} to crack WPA2 handshakes' % args.wordlist)
             elif os.path.isdir(args.wordlist):
                 cls.wordlist = None
-                Color.pl('{+} {C}option:{O} wordlist {R}%s{O} is a directory, not a file. Wifidk will NOT attempt to crack handshakes' % args.wordlist)
+                Color.pl('{+} {C}option:{O} wordlist {R}%s{O} is a directory, not a file. Wifite2 will NOT attempt to crack handshakes' % args.wordlist)
 
         if args.wpa_deauth_timeout:
             cls.wpa_deauth_timeout = args.wpa_deauth_timeout
@@ -457,7 +457,7 @@ class Configuration(object):
     def create_temp():
         ''' Creates and returns a temporary directory '''
         from tempfile import mkdtemp
-        tmp = mkdtemp(prefix='wifidk')
+        tmp = mkdtemp(prefix='wifite2')
         if not tmp.endswith(os.sep):
             tmp += os.sep
         return tmp
@@ -477,10 +477,10 @@ class Configuration(object):
             return cls.log_file
         try:
             home = os.path.expanduser('~')
-            log_dir = os.path.join(home, '.wifidk')
+            log_dir = os.path.join(home, '.wifite2')
             if not os.path.exists(log_dir):
                 os.makedirs(log_dir)
-            cls.log_file = os.path.join(log_dir, 'wifidk.log')
+            cls.log_file = os.path.join(log_dir, 'wifite2.log')
             return cls.log_file
         except Exception:
             return None

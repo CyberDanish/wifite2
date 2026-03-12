@@ -28,7 +28,22 @@ class Wifite2(object):
         if os.getuid() != 0:
             Color.pl('{!} {R}error: {O}wifite2{R} must be run as {O}root{W}')
             Color.pl('{!} {R}re-run with {O}sudo{W}')
+            Color.pl('{!}')
+            Color.pl('{!} {G}On Kali Linux:{W}')
+            Color.pl('{!} {C}sudo python3 Wifite2.py{W}')
+            Color.pl('{!} {C}or: sudo wifite2{W}')
             Configuration.exit_gracefully(0)
+
+        # Early dependency check for aircrack-ng
+        from .util.process import Process
+        if not Process.exists('aircrack-ng'):
+            Color.pl('{!} {R}ERROR: aircrack-ng not found!{W}')
+            Color.pl('{!} {O}This is REQUIRED to run Wifite2{W}')
+            Color.pl('{!}')
+            Color.pl('{!} {G}Fix on Kali Linux:{W}')
+            Color.pl('{!} {C}sudo apt update && sudo apt install -y aircrack-ng{W}')
+            Color.pl('{!}')
+            Configuration.exit_gracefully(1)
 
         from .tools.dependency import Dependency
         Dependency.run_dependency_check()

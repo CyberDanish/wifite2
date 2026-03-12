@@ -12,9 +12,6 @@ from json import loads, dumps
 class CrackResult(object):
     ''' Abstract class containing results from a crack session '''
 
-    # File to save cracks to, in PWD
-    cracked_file = Configuration.cracked_file
-
     def __init__(self):
         self.date = int(time.time())
         self.readable_date = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(self.date))
@@ -40,7 +37,7 @@ class CrackResult(object):
 
     def save(self):
         ''' Adds this crack result to the cracked file and saves it. '''
-        name = CrackResult.cracked_file
+        name = Configuration.cracked_file
         saved_results = []
         if os.path.exists(name):
             with open(name, 'r') as fid:
@@ -70,7 +67,7 @@ class CrackResult(object):
     @classmethod
     def display(cls):
         ''' Show cracked targets from cracked file '''
-        name = cls.cracked_file
+        name = Configuration.cracked_file
         if not os.path.exists(name):
             Color.pl('{!} {O}file {C}%s{O} not found{W}' % name)
             return
@@ -110,8 +107,8 @@ class CrackResult(object):
 
     @classmethod
     def load_all(cls):
-        if not os.path.exists(cls.cracked_file): return []
-        with open(cls.cracked_file, 'r') as json_file:
+        if not os.path.exists(Configuration.cracked_file): return []
+        with open(Configuration.cracked_file, 'r') as json_file:
             json = loads(json_file.read())
         return json
 

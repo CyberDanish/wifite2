@@ -23,7 +23,7 @@ setup(
         ]
     },
     license='GNU GPLv2',
-    scripts=['bin/wifidk'],
+    scripts=['bin/wifite2'],
     description='Wireless Network Auditor for Linux',
     #long_description=open('README.md').read(),
     long_description='''Wireless Network Auditor for Linux.

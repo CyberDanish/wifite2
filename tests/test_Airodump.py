@@ -9,7 +9,7 @@ from wifite2.tools.airodump import Airodump
 import unittest
 
 class TestAirodump(unittest.TestCase):
-    ''' Test suite for Wifidk's interaction with the Airodump tool '''
+    ''' Test suite for Wifite2's interaction with the Airodump tool '''
 
 
     def test_airodump_weird_characters(self):

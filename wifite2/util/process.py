@@ -74,21 +74,42 @@ class Process(object):
     @staticmethod
     def exists(program):
         ''' Checks if program is installed on this system '''
+        # Try multiple common Kali Linux paths
+        common_paths = [
+            '/usr/bin/' + program,
+            '/usr/local/bin/' + program,
+            '/usr/sbin/' + program,
+            '/usr/local/sbin/' + program,
+            '/opt/aircrack-ng/bin/' + program,
+            '/opt/aircrack-ng/sbin/' + program,
+        ]
+        
+        # Check if file exists in common locations
+        import os
+        for path in common_paths:
+            if os.path.exists(path) and os.access(path, os.X_OK):
+                return True
+        
+        # Try shutil.which() for PATH lookup
         try:
             import shutil
             if hasattr(shutil, 'which'):
-                return shutil.which(program) is not None
+                result = shutil.which(program)
+                if result is not None:
+                    return True
         except Exception:
             pass
 
-        p = Process(['which', program])
-        stdout = p.stdout().strip()
-        stderr = p.stderr().strip()
+        # Fallback to 'which' command
+        try:
+            p = Process(['which', program])
+            stdout = p.stdout().strip()
+            if stdout != '':
+                return True
+        except Exception:
+            pass
 
-        if stdout == '' and stderr == '':
-            return False
-
-        return True
+        return False
 
     def __init__(self, command, devnull=False, stdout=PIPE, stderr=PIPE, cwd=None, bufsize=0, stdin=PIPE):
         ''' Starts executing command '''

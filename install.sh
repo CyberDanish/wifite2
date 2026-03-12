@@ -7,17 +7,21 @@ if [[ "${EUID}" -ne 0 ]]; then
 fi
 
 echo "[*] Updating package lists..."
-apt-get update -y
+apt-get update -y 2>/dev/null || apt-get update -y
 
-echo "[*] Installing required packages..."
-apt-get install -y \
-  python3 \
-  python3-setuptools \
-  aircrack-ng \
-  wireless-tools \
-  net-tools
+echo "[*] Installing REQUIRED packages..."
+REQUIRED_PKGS="python3 python3-setuptools aircrack-ng wireless-tools net-tools"
+for pkg in $REQUIRED_PKGS; do
+  if dpkg -l | grep -q "^ii  $pkg"; then
+    echo "[+] $pkg is already installed"
+  else
+    echo "[*] Installing $pkg..."
+    apt-get install -y "$pkg" || true
+  done
+done
 
-echo "[*] Installing optional (recommended) tools..."
+echo ""
+echo "[*] Installing optional (recommended) tools for better speed & features..."
 apt-get install -y \
   tshark \
   reaver \
@@ -26,9 +30,23 @@ apt-get install -y \
   pyrit \
   hashcat \
   hcxdumptool \
-  hcxtools || true
+  hcxtools \
+  macchanger || true
 
+echo ""
 echo "[*] Installing Wifite2 - Created by @CyberDanish..."
 python3 setup.py install
 
-echo "[+] Done. Run: sudo wifite2"
+echo ""
+echo "[+] =========================================="
+echo "[+] Installation Complete!"
+echo "[+] =========================================="
+echo ""
+echo "[*] Run Wifite2 with:"
+echo "[*]   sudo wifite2"
+echo "[*] Or directly:"
+echo "[*]   sudo python3 Wifite2.py"
+echo ""
+echo "[*] Check if aircrack-ng is found:"
+echo "[*]   which aircrack-ng"
+echo ""

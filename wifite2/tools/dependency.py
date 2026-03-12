@@ -41,8 +41,8 @@ class Dependency(object):
         from .hashcat import Hashcat, HcxDumpTool, HcxPcapTool
 
         apps = [
-                # Aircrack
-                Aircrack, #Airodump, Airmon, Aireplay,
+                # Aircrack - REQUIRED for any attack
+                Aircrack, Airodump, Airmon, Aireplay,
                 # wireless/net tools
                 Iwconfig, Ifconfig,
                 # WPS
@@ -79,7 +79,13 @@ class Dependency(object):
                 Color.pl('{!} {O}Tip: run with {C}-v{O} for install links{W}')
 
         if len(missing_required) > 0:
-            Color.pl('{!} {O}At least 1 Required app is missing. Wifidk needs Required apps to run{W}')
+            Color.pl('{!} {R}=== DEPENDENCY CHECK FAILED ==={W}')
+            Color.pl('{!} {O}Fix for Kali Linux:{W}')
+            Color.pl('{!} {G}sudo apt update && sudo apt install -y aircrack-ng{W}')
+            Color.pl('{!} {O}Or:{W}')
+            Color.pl('{!} {G}sudo apt install -y aircrack-ng macchanger tshark{W}')
+            Color.pl('{!}')
+            Color.pl('{!} {R}At least 1 Required app is missing. Make sure aircrack-ng is installed!{W}')
             import sys
             sys.exit(-1)
 

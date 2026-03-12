@@ -208,9 +208,18 @@ class Airmon(Dependency):
         # Assert that the interface enabled by airmon-ng is in monitor mode
         if enabled_iface not in monitor_interfaces:
             Color.pl('{R}failed{W}')
+            Color.pl('{!} {R}Cannot find monitor interface{W}')
+            Color.pl('{!} {O}Debug Info:{W}')
+            Color.pl('{!}   Interface: %s' % iface_name)
+            Color.pl('{!}   Monitor Interfaces: %s' % (', '.join(monitor_interfaces) if monitor_interfaces else 'None found'))
+            Color.pl('{!}')
+            Color.pl('{!} {G}Fix for Kali Linux:{W}')
+            Color.pl('{!}   1. {C}sudo apt update && sudo apt install -y aircrack-ng{W}')
+            Color.pl('{!}   2. {C}sudo airmon-ng check kill{W}')
+            Color.pl('{!}   3. {C}sudo python3 Wifite2.py{W}')
             raise Exception(
                 'Cannot find a monitor interface for %s (found: %s)' % (
-                    iface_name, ', '.join(monitor_interfaces))
+                    iface_name, ', '.join(monitor_interfaces) if monitor_interfaces else 'None')
             )
 
         # No errors found; the device 'enabled_iface' was put into Mode:Monitor.
@@ -377,7 +386,7 @@ class Airmon(Dependency):
                 for pid, pname in pid_pnames
             ])
             Color.pl('{!} {O}Conflicting processes: %s' % names_and_pids)
-            Color.pl('{!} {O}If you have problems: {R}kill -9 PID{O} or re-run wifidk with {R}--kill{O}){W}')
+            Color.pl('{!} {O}If you have problems: {R}kill -9 PID{O} or re-run wifite2 with {R}--kill{O}){W}')
             return
 
         Color.pl('{!} {O}Killing {R}%d {O}conflicting processes' % len(pid_pnames))

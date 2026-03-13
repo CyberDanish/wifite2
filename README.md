@@ -131,7 +131,7 @@ Pull requests, bug reports, and feature requests welcome on GitHub.
 ## Credits
 
 - **Original**: derv82 - [Wifite Project](https://github.com/derv82/wifite)
-- **Wifite2**: @CyberDanish & community contributors
+- **Wifite2**: @CyberDanish
 - **Dependencies**: Aircrack-ng, Hashcat, Reaver, and related tools
 
 ---

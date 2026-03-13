@@ -25,8 +25,8 @@ class Wifite2(object):
         Configuration.initialize(load_interface=False)
 
         if os.getuid() != 0:
-            Color.pl('{!} {R}error: {O}wifite{R} must be run as {O}root{W}')
-            Color.pl('{!} {R}re-run with {O}sudo{W}')
+            Color.pl('{!} {R}error: {O}wifite2{R} must be run as {O}root{W}')
+            Color.pl('{!} {R}re-run with {O}sudo wifite2{W}')
             Configuration.exit_gracefully(0)
 
         from .tools.dependency import Dependency

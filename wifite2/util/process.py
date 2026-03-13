@@ -100,12 +100,14 @@ class Process(object):
         except Exception:
             pass
 
-        # Fallback to 'which' command
+        # Fallback to 'which' command via subprocess
         try:
-            p = Process(['which', program])
-            stdout = p.stdout().strip()
-            if stdout != '':
-                return True
+            from subprocess import call
+            import os
+            with open(os.devnull, 'w') as devnull:
+                result = call(['which', program], stdout=devnull, stderr=devnull)
+                if result == 0:
+                    return True
         except Exception:
             pass
 

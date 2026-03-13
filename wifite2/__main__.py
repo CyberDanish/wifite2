@@ -36,6 +36,7 @@ class Wifite2(object):
 
         # Early dependency check for aircrack-ng
         from .util.process import Process
+        Color.pl('{+} Checking for aircrack-ng...{W}')
         if not Process.exists('aircrack-ng'):
             Color.pl('{!} {R}ERROR: aircrack-ng not found!{W}')
             Color.pl('{!} {O}This is REQUIRED to run Wifite2{W}')
@@ -43,10 +44,19 @@ class Wifite2(object):
             Color.pl('{!} {G}Fix on Kali Linux:{W}')
             Color.pl('{!} {C}sudo apt update && sudo apt install -y aircrack-ng{W}')
             Color.pl('{!}')
+            Color.pl('{!} {O}Debug: Checking common paths...{W}')
+            import os
+            paths = ['/usr/bin/aircrack-ng', '/usr/sbin/aircrack-ng', '/opt/aircrack-ng/bin/aircrack-ng']
+            for p in paths:
+                exists = os.path.exists(p)
+                Color.pl('{!} {O}  %s: %s{W}' % (p, '{G}OK{W}' if exists else '{R}NOT FOUND{W}'))
             Configuration.exit_gracefully(1)
+        Color.pl('{+} Found aircrack-ng {G}OK{W}')
 
         from .tools.dependency import Dependency
+        Color.pl('{+} Running dependency check...{W}')
         Dependency.run_dependency_check()
+        Color.pl('{+} All dependencies {G}OK{W}')
 
 
     def start(self):
@@ -83,6 +93,9 @@ class Wifite2(object):
         Color.pl(r' {GR}{D} created by {C}@CyberDanish{W}')
         Color.pl(r' {G}=============================================={W}')
         Color.pl('')
+        Color.pl(' {D}Python %s' % sys.version.split()[0])
+        Color.pl(' {D}Platform: %s' % sys.platform)
+        Color.pl('')
 
 
     def scan_and_attack(self):
@@ -112,13 +125,15 @@ def entry_point():
     try:
         wifite2 = Wifite2()
         wifite2.start()
-    except Exception as e:
-        Color.pexception(e)
-        Color.pl('\n{!} {R}Exiting{W}\n')
-
     except KeyboardInterrupt:
         Color.pl('\n{!} {O}Interrupted, Shutting down...{W}')
-
+    except Exception as e:
+        import traceback
+        Color.pl('\n{!} {R}ERROR: {W}%s' % str(e))
+        if Configuration.verbose > 0:
+            Color.pl('{!} {O}Traceback:{W}')
+            traceback.print_exc()
+    
     Configuration.exit_gracefully(0)
 
 

@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Created by @CyberDanish
 
-from wifite2.tools.airodump import Airodump
+from wifite.tools.airodump import Airodump
 
 import unittest
 

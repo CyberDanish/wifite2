@@ -4,12 +4,12 @@
 import sys
 sys.path.insert(0, '..')
 
-from wifite2.tools.airodump import Airodump
+from wifite.tools.airodump import Airodump
 
 import unittest
 
 class TestAirodump(unittest.TestCase):
-    ''' Test suite for Wifite2's interaction with the Airodump tool '''
+    ''' Test suite for Wifite's interaction with the Airodump tool '''
 
 
     def test_airodump_weird_characters(self):

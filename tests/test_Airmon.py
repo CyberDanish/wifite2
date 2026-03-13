@@ -4,13 +4,13 @@
 import sys
 sys.path.insert(0, '..')
 
-from wifite2.tools.airmon import Airmon
+from wifite.tools.airmon import Airmon
 
 import unittest
 
 class TestAirmon(unittest.TestCase):
     def test_airmon_start(self):
-        # From https://github.com/CyberDanish/wifidk/issues/67
+        # From https://github.com/derv82/wifite2/issues/67
         stdout = '''
 PHY    Interface    Driver        Chipset
 

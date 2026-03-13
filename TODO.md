@@ -1,17 +1,17 @@
 # TODO
 
-This file is a braindump of ideas to improve Wifidk (or forward-looking to "Wifidk3")
+This file is a braindump of ideas to improve Wifite2 (or forward-looking to "Wifite3")
 
 ------------------------------------------------------
 
 ### Better Dependency Handling
-I can rely on `pip` + `requirements.txt` for python libraries, but most of wifidk's dependencies are installed programs.
+I can rely on `pip` + `requirements.txt` for python libraries, but most of wifite's dependencies are installed programs.
 
-When a dependency is not found, Wifidk should walk the user through installing all required dependencies, and maybe the optional dependencies as well.
+When a dependency is not found, Wifite should walk the user through installing all required dependencies, and maybe the optional dependencies as well.
 
 The dependency-installation walkthrough should provide or auto-execute the install commands (`git clone`, `wget | tar && ./config`, etc).
 
-Since we have a Python script for every dependency (under `wifidk/tools/` or `wifidk/util/`), we use Python's multiple-inheritance to achieve this.
+Since we have a Python script for every dependency (under `wifite/tools/` or `wifite/util/`), we use Python's multiple-inheritance to achieve this.
 
 Requirements:
 
@@ -19,7 +19,7 @@ Requirements:
    * `@abstractmethods` for `exists()`, `name()`, `install()`, `print_install()`
 2. Update all dependencies to inherit *Dependency*
    * Override abstract methods
-3. Dependency-checker to run at Wifidk startup.
+3. Dependency-checker to run at Wifite startup.
    * Check if all required dependencies exists.
    * If required deps are missing, Prompt to install all (optional+required) or just required, or to continue w/o install with warning.
    * If optional deps are missing, suggest `--install` without prompting.
@@ -48,13 +48,13 @@ Versioning problems:
 * Reaver and bully args have changed significantly over the years (added/removed/required)
 * airodump-ng --write-interval=1 doesn't work on older versions
   * Same with --wps and a few other options :(
-* airmon-ng output differs, wifidk sees "phy0" instead of the interface name.
+* airmon-ng output differs, wifite sees "phy0" instead of the interface name.
 
 Misc problems:
 
 * Some people have problems with multiple wifi cards plugged in
   * Solution: User prompt when no devices are in monitor mode (ask first).
-* Some people want wifidk to kill network manager, others don't.
+* Some people want wifite to kill network manager, others don't.
   * Solution: User prompt to kill processes
 * Some people need --ignore-negative-one on some wifi cards.
 
@@ -62,13 +62,13 @@ Misc problems:
 
 ### Command-line Arguments
 
-Wifidk is a 'Spray and Pray', 'Big Red Button' script. Wifidk should not provide obscure options that only advanced users can understand. Advanced users can simply use Wifidk's dependencies directly.
+Wifite is a 'Spray and Pray', 'Big Red Button' script. Wifite should not provide obscure options that only advanced users can understand. Advanced users can simply use Wifite's dependencies directly.
 
 --------------------------------
 
-Every option in Wifidk's should either:
+Every option in Wifite's should either:
 
-1. Significantly affect how Wifidk behaves (e.g. `pillage`, `5ghz`, '--no-wps', '--nodeauths')
+1. Significantly affect how Wifite behaves (e.g. `pillage`, `5ghz`, '--no-wps', '--nodeauths')
 2. Or narrow down the list of targets (e.g. filtering --wps --wep --channel)
 3. Or set some flag required by certain hardware (packets per second)
 
@@ -94,7 +94,7 @@ The "Commands" (`cracked`, `crack`, `check`) should probably not start with `--`
 
 ### Native Python Implementations
 
-Some dependencies of Wifidk (aircrack suite, tshark, etc) could be replaced with native Python implementations.
+Some dependencies of Wifite (aircrack suite, tshark, etc) could be replaced with native Python implementations.
 
 *Scapy* allows listening to and inspecting packets, writing pcap files, and other features.
 
@@ -108,15 +108,15 @@ And some native Python implementations might be cross-platform, which would allo
 
 ### Non-Linux support (OSX & Windows)
 
-Some of Wifidk's dependencies work on other OSes (airodump) but some don't (airmon).
+Some of Wifite's dependencies work on other OSes (airodump) but some don't (airmon).
 
-If it's possible to run these programs on Windows or OSX, Wifidk should support that.
+If it's possible to run these programs on Windows or OSX, Wifite should support that.
 
 ------------------------------------------------------
 
 ### WPS Attacks
 
-Wifidk's Pixie-Dust attack status output differs between Reaver & Bully. And the command line switches are... not even used by bully?
+Wifite's Pixie-Dust attack status output differs between Reaver & Bully. And the command line switches are... not even used by bully?
 
 Ideally for Pixie-Dust, we'd have:
 
@@ -138,9 +138,9 @@ Order of statuses:
 4. Running pixiewps
 5. Cracked or Failed
 
-And as for PIN cracking.. um.. Not even sure this should be an option in Wifidk TBH.
+And as for PIN cracking.. um.. Not even sure this should be an option in Wifite TBH.
 PIN cracking takes days and most APs auto-lock after 3 attempts.
-Multi-day (possibly multi-month) attacks aren't a good fit for Wifidk.
+Multi-day (possibly multi-month) attacks aren't a good fit for Wifite.
 Users with that kind of dedication can run bully/reaver themselves.
 
 ------------------------------------------------------

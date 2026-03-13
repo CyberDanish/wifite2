@@ -7,7 +7,7 @@ See https://hashcat.net/forum/thread-7717.html
 1. Start `hcxdumptool` (daemon)
    * `sudo hcxdumptool -i wlan1mon -o pmkid.pcapng -t 10 --enable_status=1`
    * Should also use `-c <channel>`, `--filterlist` and `--filtermode` to target a specific client
-   * Could be a new attack type: `wifidk.attack.pmkid`
+   * Could be a new attack type: `wifite.attack.pmkid`
 2. Detect when PMKID is found.
    * `hcxpcaptool -z pmkid.16800 pmkid.pcapng`
    * Single-line in pmkid.16800 will have PMKID, MACAP, MACStation, ESSID (in hex).

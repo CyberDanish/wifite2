@@ -12,12 +12,11 @@ import os
 import sys
 
 
-class Wifite2(object):
+class Wifite(object):
 
     def __init__(self):
         '''
-        Initializes Wifite2. Checks for root permissions and ensures dependencies are installed.
-        Created By @CyberDanish
+        Initializes Wifite. Checks for root permissions and ensures dependencies are installed.
         '''
 
         self.print_banner()
@@ -25,8 +24,8 @@ class Wifite2(object):
         Configuration.initialize(load_interface=False)
 
         if os.getuid() != 0:
-            Color.pl('{!} {R}error: {O}wifite2{R} must be run as {O}root{W}')
-            Color.pl('{!} {R}re-run with {O}sudo wifite2{W}')
+            Color.pl('{!} {R}error: {O}wifite{R} must be run as {O}root{W}')
+            Color.pl('{!} {R}re-run with {O}sudo{W}')
             Configuration.exit_gracefully(0)
 
         from .tools.dependency import Dependency
@@ -58,9 +57,9 @@ class Wifite2(object):
     def print_banner(self):
         '''Displays ASCII art of the highest caliber.'''
         Color.pl(r' {G}  .     {GR}{D}     {W}{G}     .    {W}')
-        Color.pl(r' {G}.´  ·  .{GR}{D}     {W}{G}.  ·  `.  {G}Wifite2 {D}%s{W}' % Configuration.version)
-        Color.pl(r' {G}:  :  : {GR}{D} (¯) {W}{G} :  :  :  {W}{D}Created By @CyberDanish{W}')
-        Color.pl(r' {G}`.  ·  `{GR}{D} /¯\ {W}{G}´  ·  .´  {C}{D}Wireless Network Auditor{W}')
+        Color.pl(r' {G}.´  ·  .{GR}{D}     {W}{G}.  ·  `.  {G}wifite {D}%s{W}' % Configuration.version)
+        Color.pl(r' {G}:  :  : {GR}{D} (¯) {W}{G} :  :  :  {W}{D}automated wireless auditor{W}')
+        Color.pl(r' {G}`.  ·  `{GR}{D} /¯\ {W}{G}´  ·  .´  {C}{D}https://github.com/derv82/wifite2{W}')
         Color.pl(r' {G}  `     {GR}{D}/¯¯¯\{W}{G}     ´    {W}')
         Color.pl('')
 
@@ -90,7 +89,7 @@ class Wifite2(object):
 
 def entry_point():
     try:
-        wifite = Wifite2()
+        wifite = Wifite()
         wifite.start()
     except Exception as e:
         Color.pexception(e)

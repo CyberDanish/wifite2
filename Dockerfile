@@ -73,7 +73,7 @@ RUN make
 # Workdir /
 WORKDIR /
 
-# Install Wifite2
+# Install wifite
 RUN git clone https://github.com/derv82/wifite2.git
 WORKDIR /wifite2/
 ENTRYPOINT ["/bin/bash"]

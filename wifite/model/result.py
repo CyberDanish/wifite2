@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from ..util.color import Color
-from ..config import Configuration
 
 import os
 import time
@@ -12,7 +11,7 @@ class CrackResult(object):
     ''' Abstract class containing results from a crack session '''
 
     # File to save cracks to, in PWD
-    cracked_file = Configuration.cracked_file
+    cracked_file = 'cracked.txt'
 
     def __init__(self):
         self.date = int(time.time())
@@ -56,8 +55,8 @@ class CrackResult(object):
             this_dict['date'] = entry.get('date')
             if entry == this_dict:
                 # Skip if we already saved this BSSID+ESSID+TYPE+KEY
-                Color.pl('{+} {C}%s{O} already exists in {G}%s{O}, skipping.' % (
-                    self.essid, Configuration.cracked_file))
+                Color.pl('{+} {C}%s{O} already exists in {G}cracked.txt{O}, skipping.' % (
+                    self.essid))
                 return
 
         saved_results.append(self.to_dict())
@@ -68,7 +67,7 @@ class CrackResult(object):
 
     @classmethod
     def display(cls):
-        ''' Show cracked targets from cracked file '''
+        ''' Show cracked targets from cracked.txt '''
         name = cls.cracked_file
         if not os.path.exists(name):
             Color.pl('{!} {O}file {C}%s{O} not found{W}' % name)

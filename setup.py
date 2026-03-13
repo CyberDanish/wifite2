@@ -3,9 +3,9 @@ from distutils.core import setup
 from wifite.config import Configuration
 
 setup(
-    name='Wifite2',
+    name='wifite',
     version=Configuration.version,
-    author='CyberDanish',
+    author='derv82',
     author_email='derv82@gmail.com',
     url='https://github.com/derv82/wifite2',
     packages=[
@@ -16,15 +16,15 @@ setup(
         'wifite/util',
     ],
     data_files=[
-        ('share/dict', ['wordlist2.txt'])
+        ('share/dict', ['wordlist-top4800-probable.txt'])
     ],
     entry_points={
         'console_scripts': [
-            'wifite2 = wifite.__main__:entry_point'
+            'wifite = wifite.wifite:entry_point'
         ]
     },
     license='GNU GPLv2',
-    scripts=['bin/wifite2'],
+    scripts=['bin/wifite'],
     description='Wireless Network Auditor for Linux',
     #long_description=open('README.md').read(),
     long_description='''Wireless Network Auditor for Linux.

@@ -13,12 +13,14 @@ from ..tools.cowpatty import Cowpatty
 from ..tools.hashcat import Hashcat, HcxPcapTool
 from ..tools.john import John
 
-from json import loads
+from datetime import datetime
 
 import os
 
 
 # TODO: Bring back the 'print' option, for easy copy/pasting. Just one-liners people can paste into terminal.
+
+# TODO: Do not show handshake files that are in cracked.txt with a key (match on filename).
 
 # TODO: --no-crack option while attacking targets (implies user will run --crack later)
 
@@ -29,6 +31,7 @@ class CrackHelper:
         '4-WAY': '4-Way Handshake',
         'PMKID': 'PMKID Hash'
     }
+
 
     @classmethod
     def run(cls):
@@ -50,7 +53,7 @@ class CrackHelper:
             return
 
         hs_to_crack = cls.get_user_selection(handshakes)
-        all_pmkid = all([hs['type'] == 'PMKID' for hs in hs_to_crack])
+        any_pmkid = any([hs['type'] == 'PMKID' for hs in hs_to_crack])
 
         # Tools for cracking & their dependencies.
         available_tools = {
@@ -76,46 +79,26 @@ class CrackHelper:
                 dep_list = ', '.join([dep.dependency_name for dep in deps])
                 Color.pl('     {R}* {R}%s {W}({O}%s{W})' % (tool, dep_list))
 
-        if all_pmkid:
-            Color.pl('{!} {O}Note: PMKID hashes can only be cracked using {C}hashcat{W}')
-            tool_name = 'hashcat'
-        else:
-            Color.p('\n{+} Enter the {C}cracking tool{W} to use ({C}%s{W}): {G}' % (
-                '{W}, {C}'.join(available_tools.keys())))
-            tool_name = raw_input()
-            if tool_name not in available_tools:
-                Color.pl('{!} {R}"%s"{O} tool not found, defaulting to {C}aircrack{W}' % tool_name)
-                tool_name = 'aircrack'
+        Color.p('\n{+} Enter the {C}cracking tool{W} to use ({C}%s{W}): {G}' % (
+            '{W}, {C}'.join(available_tools.keys())))
+        tool_name = raw_input()
+        if tool_name not in available_tools:
+            Color.pl('{!} {R}"%s"{O} tool not found, defaulting to {C}aircrack{W}' % tool_name)
+            tool_name = 'aircrack'
+        elif any_pmkid and tool_name != 'hashcat':
+            Color.pl('{!} {O}Note: PMKID hashes will be cracked using {C}hashcat{W}')
 
         try:
             for hs in hs_to_crack:
-                if tool_name != 'hashcat' and hs['type'] == 'PMKID':
-                    if 'hashcat' in missing_tools:
-                        Color.pl('{!} {O}Hashcat is missing, therefore we cannot crack PMKID hash{W}')
                 cls.crack(hs, tool_name)
         except KeyboardInterrupt:
             Color.pl('\n{!} {O}Interrupted{W}')
 
     @classmethod
-    def is_cracked(cls, file):
-        if not os.path.exists(Configuration.cracked_file):
-            return False
-        with open(Configuration.cracked_file) as f:
-            json = loads(f.read())
-        if json is None:
-            return False
-        for result in json:
-            for k in result.keys():
-                v = result[k]
-                if 'file' in k and os.path.basename(v) == file:
-                    return True
-        return False
-
-    @classmethod
     def get_handshakes(cls):
         handshakes = []
 
-        skipped_pmkid_files = skipped_cracked_files = 0
+        skipped_pmkid_files = 0
 
         hs_dir = Configuration.wpa_handshake_dir
         if not os.path.exists(hs_dir) or not os.path.isdir(hs_dir):
@@ -125,10 +108,6 @@ class CrackHelper:
         Color.pl('\n{+} Listing captured handshakes from {C}%s{W}:\n' % os.path.abspath(hs_dir))
         for hs_file in os.listdir(hs_dir):
             if hs_file.count('_') != 3:
-                continue
-
-            if cls.is_cracked(hs_file):
-                skipped_cracked_files += 1
                 continue
 
             if hs_file.endswith('.cap'):
@@ -169,9 +148,7 @@ class CrackHelper:
             handshakes.append(handshake)
 
         if skipped_pmkid_files > 0:
-            Color.pl('{!} {O}Skipping %d {R}*.16800{O} files because {R}hashcat{O} is missing.{W}\n' % skipped_pmkid_files)
-        if skipped_cracked_files > 0:
-            Color.pl('{!} {O}Skipping %d already cracked files.{W}\n' % skipped_cracked_files)
+            Color.pl('{!} {O}Skipping %d {R}*.16800{O} files because {R}hashcat{O} is missing.' % skipped_pmkid_files)
 
         # Sort by Date (Descending)
         return sorted(handshakes, key=lambda x: x.get('date'), reverse=True)
@@ -181,7 +158,7 @@ class CrackHelper:
     def print_handshakes(cls, handshakes):
         # Header
         max_essid_len = max([len(hs['essid']) for hs in handshakes] + [len('ESSID (truncated)')])
-        Color.p('{W}{D}  NUM')
+        Color.p('{D}  NUM')
         Color.p('  ' + 'ESSID (truncated)'.ljust(max_essid_len))
         Color.p('  ' + 'BSSID'.ljust(17))
         Color.p('  ' + 'TYPE'.ljust(5))
@@ -193,6 +170,8 @@ class CrackHelper:
         Color.p('  ' + ('-' * 19) + '{W}\n')
         # Handshakes
         for index, handshake in enumerate(handshakes, start=1):
+            bssid = handshake['bssid']
+            date  = handshake['date']
             Color.p('  {G}%s{W}' % str(index).rjust(3))
             Color.p('  {C}%s{W}' % handshake['essid'].ljust(max_essid_len))
             Color.p('  {O}%s{W}' % handshake['bssid'].ljust(17))
@@ -274,10 +253,7 @@ class CrackHelper:
 
 
     @classmethod
-    def crack_pmkid(cls, hs, tool):
-        if tool != 'hashcat':
-            Color.pl('{!} {O}Note: PMKID hashes can only be cracked using {C}hashcat{W}')
-
+    def crack_pmkid(cls, hs, tool_name):
         key = Hashcat.crack_pmkid(hs['filename'], verbose=True)
 
         if key is not None:

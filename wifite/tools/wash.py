@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from .dependency import Dependency
-from ..model.target import WPSState
 from ..util.process import Process
 import json
 
@@ -54,11 +53,11 @@ class Wash(Dependency):
         for t in targets:
             target_bssid = t.bssid.upper()
             if target_bssid in wps_bssids:
-                t.wps = WPSState.UNLOCKED
+                t.wps = True
             elif target_bssid in locked_bssids:
-                t.wps = WPSState.LOCKED
+                t.wps = None
             else:
-                t.wps = WPSState.NONE
+                t.wps = False
 
 
 if __name__ == '__main__':
@@ -81,8 +80,7 @@ if __name__ == '__main__':
     # Should update 'wps' field of a target
     Wash.check_for_wps_and_update_targets(test_file, targets)
 
-    print('Target(BSSID={}).wps = {} (Expected: 1)'.format(
-        targets[0].bssid, targets[0].wps))
+    print('Target(BSSID={}).wps = {} (Expected: True)'.format(targets[0].bssid, targets[0].wps))
 
-    assert targets[0].wps == WPSState.UNLOCKED
+    assert targets[0].wps == True
 

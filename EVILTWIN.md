@@ -1,4 +1,4 @@
-An idea from Sandman: Include "Evil Twin" attack in Wifite2.
+An idea from Sandman: Include "Evil Twin" attack in Wifite.
 
 This page tracks the requirements for such a feature.
 
@@ -21,7 +21,7 @@ Clients enter the password to the target AP. The Evil Twin then:
 3. If valid, all clients are deauthed from Evil Twin so they re-join the target AP.
 4. Otherwise, tell the user the password is invalid and to "try again". GOTO step #1.
 
-Below are all of the requirements/components that Wifite2 would need for this feature.
+Below are all of the requirements/components that Wifite would need for this feature.
 
 
 DHCP
@@ -166,7 +166,7 @@ MDK
 ---
 Deauthing & DoS is easy to do using [MDK](https://tools.kali.org/wireless-attacks/mdk3) or `aireplay-ng`.
 
-I think MDK is a better tool for this job, but Wifite2 already requires the `aircrack` suite, so we should support both.
+I think MDK is a better tool for this job, but Wifite already requires the `aircrack` suite, so we should support both.
 
 TODO: Require MDK if it is miles-ahead of `aireplay-ng`
 TODO: Figure out MDK commands for persistent deauths; if we can provide a list of client MAC addresses & BSSIDs.

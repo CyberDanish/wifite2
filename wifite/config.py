@@ -78,18 +78,15 @@ class Configuration(object):
         cls.wpa_handshake_dir = 'hs' # Dir to store handshakes
         cls.wpa_strip_handshake = False # Strip non-handshake packets
         cls.ignore_old_handshakes = False # Always fetch a new handshake
-
-        # PMKID variables
         cls.use_pmkid_only = False  # Only use PMKID Capture+Crack attack
         cls.pmkid_timeout = 30  # Time to wait for PMKID capture
 
         # Default dictionary for cracking
-        cls.cracked_file = 'cracked.txt'
         cls.wordlist = None
         wordlists = [
-            './wordlist2.txt',  # Local file (ran from cloned repo)
-            '/usr/share/dict/wordlist2.txt',  # setup.py with prefix=/usr
-            '/usr/local/share/dict/wordlist2.txt',  # setup.py with prefix=/usr/local
+            './wordlist-top4800-probable.txt',  # Local file (ran from cloned repo)
+            '/usr/share/dict/wordlist-top4800-probable.txt',  # setup.py with prefix=/usr
+            '/usr/local/share/dict/wordlist-top4800-probable.txt',  # setup.py with prefix=/usr/local
             # Other passwords found on Kali
             '/usr/share/wfuzz/wordlist/fuzzdb/wordlists-user-passwd/passwds/phpbb.txt',
             '/usr/share/fuzzdb/wordlists-user-passwd/passwds/phpbb.txt',
@@ -143,7 +140,6 @@ class Configuration(object):
         cls.parse_wep_args(args)
         cls.parse_wpa_args(args)
         cls.parse_wps_args(args)
-        cls.parse_pmkid_args(args)
         cls.parse_encryption()
 
         # EvilTwin
@@ -286,15 +282,12 @@ class Configuration(object):
             cls.wpa_filter = args.wpa_filter
 
         if args.wordlist:
-            if not os.path.exists(args.wordlist):
-                cls.wordlist = None
-                Color.pl('{+} {C}option:{O} wordlist {R}%s{O} was not found, wifite will NOT attempt to crack handshakes' % args.wordlist)
-            elif os.path.isfile(args.wordlist):
+            if os.path.exists(args.wordlist):
                 cls.wordlist = args.wordlist
                 Color.pl('{+} {C}option:{W} using wordlist {G}%s{W} to crack WPA handshakes' % args.wordlist)
-            elif os.path.isdir(args.wordlist):
+            else:
                 cls.wordlist = None
-                Color.pl('{+} {C}option:{O} wordlist {R}%s{O} is a directory, not a file. Wifite will NOT attempt to crack handshakes' % args.wordlist)
+                Color.pl('{+} {C}option:{O} wordlist {R}%s{O} was not found, wifite will NOT attempt to crack handshakes' % args.wordlist)
 
         if args.wpa_deauth_timeout:
             cls.wpa_deauth_timeout = args.wpa_deauth_timeout
@@ -310,6 +303,14 @@ class Configuration(object):
             cls.ignore_old_handshakes = True
             Color.pl('{+} {C}option:{W} will {O}ignore{W} existing handshakes ' +
                     '(force capture)')
+
+        if args.use_pmkid_only:
+            cls.use_pmkid_only = True
+            Color.pl('{+} {C}option:{W} will ONLY use {C}PMKID{W} attack on WPA networks')
+
+        if args.pmkid_timeout:
+            cls.pmkid_timeout = args.pmkid_timeout
+            Color.pl('{+} {C}option:{W} will wait {G}%d{W} seconds during {C}PMKID{W} capture')
 
         if args.wpa_handshake_dir:
             cls.wpa_handshake_dir = args.wpa_handshake_dir
@@ -355,7 +356,7 @@ class Configuration(object):
                     '(no {O}Pixie-Dust{W}) on targets')
 
         if args.use_bully:
-            from .tools.bully import Bully
+            from tools.bully import Bully
             if not Bully.exists():
                 Color.pl('{!} {R}Bully not found. Defaulting to {O}reaver{W}')
                 cls.use_bully = False
@@ -384,16 +385,6 @@ class Configuration(object):
             Color.pl('{+} {C}option:{W} will {O}ignore{W} WPS lock-outs')
 
     @classmethod
-    def parse_pmkid_args(cls, args):
-        if args.use_pmkid_only:
-            cls.use_pmkid_only = True
-            Color.pl('{+} {C}option:{W} will ONLY use {C}PMKID{W} attack on WPA networks')
-
-        if args.pmkid_timeout:
-            cls.pmkid_timeout = args.pmkid_timeout
-            Color.pl('{+} {C}option:{W} will wait {G}%d seconds{W} during {C}PMKID{W} capture' % args.pmkid_timeout)
-
-    @classmethod
     def parse_encryption(cls):
         '''Adjusts encryption filter (WEP and/or WPA and/or WPS)'''
         cls.encryption_filter = []
@@ -415,9 +406,9 @@ class Configuration(object):
     def parse_wep_attacks(cls):
         '''Parses and sets WEP-specific args (-chopchop, -fragment, etc)'''
         cls.wep_attacks = []
-        from sys import argv
+        import sys
         seen = set()
-        for arg in argv:
+        for arg in sys.argv:
             if arg in seen: continue
             seen.add(arg)
             if arg == '-arpreplay':  cls.wep_attacks.append('replay')

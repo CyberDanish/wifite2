@@ -1,26 +1,26 @@
-from distutils.core import setup
+from setuptools import setup
 
-from wifite.config import Configuration
+from wifite2.config import Configuration
 
 setup(
-    name='wifite',
+    name='wifite2',
     version=Configuration.version,
-    author='derv82',
+    author='@CyberDanish',
     author_email='derv82@gmail.com',
     url='https://github.com/derv82/wifite2',
     packages=[
-        'wifite',
-        'wifite/attack',
-        'wifite/model',
-        'wifite/tools',
-        'wifite/util',
+        'wifite2',
+        'wifite2/attack',
+        'wifite2/model',
+        'wifite2/tools',
+        'wifite2/util',
     ],
     data_files=[
-        ('share/dict', ['wordlist-top4800-probable.txt'])
+        ('share/dict', ['wordlist2.txt'])
     ],
     entry_points={
         'console_scripts': [
-            'wifite = wifite.wifite:entry_point'
+            'wifite2 = wifite2.__main__:entry_point'
         ]
     },
     license='GNU GPLv2',

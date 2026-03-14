@@ -1,9 +1,11 @@
-Wifite
+Wifite2
 ======
 
 This repo is a complete re-write of [`wifite`](https://github.com/derv82/wifite), a Python script for auditing wireless networks.
 
-Wifite runs existing wireless-auditing tools for you. Stop memorizing command arguments & switches!
+Created by @CyberDanish.
+
+Wifite2 runs existing wireless-auditing tools for you. Stop memorizing command arguments & switches!
 
 Wifite is designed to use all known methods for retrieving the password of a wireless access point (router).  These methods include:
 1. WPS: The [Offline Pixie-Dust attack](https://en.wikipedia.org/wiki/Wi-Fi_Protected_Setup#Offline_brute-force_attack)
@@ -53,23 +55,37 @@ Second, only the latest versions of these programs are supported and must be ins
    * [`hcxpcaptool`](https://github.com/ZerBea/hcxtools): For converting PMKID packet captures into `hashcat`'s format.
 
 
-Run Wifite
+Run Wifite2
 ----------
-```
-git clone https://github.com/derv82/wifite2.git
-cd wifite2
-sudo ./Wifite.py
+After installation, run:
+
+```bash
+sudo wifite2
 ```
 
-Install Wifite
+To run from source without installation:
+
+```bash
+git clone https://github.com/derv82/wifite2.git
+cd wifite2
+sudo python Wifite2.py
+```
+
+Install Wifite2
 --------------
-To install onto your computer (so you can just run `wifite` from any terminal), run:
+To install onto your computer (so you can just run `wifite2` from any terminal), run:
 
 ```bash
 sudo python setup.py install
 ```
 
-This will install `wifite` to `/usr/sbin/wifite` which should be in your terminal path.
+Or using pip (recommended for simple installation):
+
+```bash
+pip install .
+```
+
+This will install `wifite2` to `/usr/sbin/wifite2` which should be in your terminal path.
 
 **Note:** Uninstalling is [not as easy](https://stackoverflow.com/questions/1550226/python-setup-py-uninstall#1550235). The only way to uninstall is to record the files installed by the above command and *remove* those files:
 

@@ -4,7 +4,7 @@
 import sys
 sys.path.insert(0, '..')
 
-from wifite.tools.airodump import Airodump
+from wifite2.tools.airodump import Airodump
 
 import unittest
 

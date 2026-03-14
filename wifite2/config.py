@@ -84,9 +84,9 @@ class Configuration(object):
         # Default dictionary for cracking
         cls.wordlist = None
         wordlists = [
-            './wordlist-top4800-probable.txt',  # Local file (ran from cloned repo)
-            '/usr/share/dict/wordlist-top4800-probable.txt',  # setup.py with prefix=/usr
-            '/usr/local/share/dict/wordlist-top4800-probable.txt',  # setup.py with prefix=/usr/local
+            './wordlist2.txt',  # Local file (ran from cloned repo)
+            '/usr/share/dict/wordlist2.txt',  # setup.py with prefix=/usr
+            '/usr/local/share/dict/wordlist2.txt',  # setup.py with prefix=/usr/local
             # Other passwords found on Kali
             '/usr/share/wfuzz/wordlist/fuzzdb/wordlists-user-passwd/passwds/phpbb.txt',
             '/usr/share/fuzzdb/wordlists-user-passwd/passwds/phpbb.txt',
@@ -105,9 +105,9 @@ class Configuration(object):
         cls.wps_pixie   = True
         cls.wps_pin     = True
         cls.wps_ignore_lock = False  # Skip WPS PIN attack if AP is locked.
-        cls.wps_pixie_timeout = 300      # Seconds to wait for PIN before WPS Pixie attack fails
-        cls.wps_fail_threshold = 100     # Max number of failures
-        cls.wps_timeout_threshold = 100  # Max number of timeouts
+        cls.wps_pixie_timeout = 60       # Seconds to wait for PIN before WPS Pixie attack fails
+        cls.wps_fail_threshold = 10      # Max number of failures
+        cls.wps_timeout_threshold = 10   # Max number of timeouts
 
         # Commands
         cls.show_cracked = False

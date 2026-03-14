@@ -37,14 +37,15 @@ Wifite2 is a powerful Python script for auditing wireless networks. It automates
 
 ## Installation
 
-### From Source
+### Quick Install
 ```bash
-git clone https://github.com/derv82/wifite2.git
+git clone https://github.com/CyberDanish/wifite2.git
 cd wifite2
 sudo python setup.py install
+sudo wifite2
 ```
 
-### Using pip
+### Alternative Installation
 ```bash
 pip install .
 ```

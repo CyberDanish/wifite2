@@ -7,7 +7,7 @@ setup(
     version=Configuration.version,
     author='@CyberDanish',
     author_email='derv82@gmail.com',
-    url='https://github.com/derv82/wifite2',
+    url='https://github.com/CyberDanish/wifite2',
     packages=[
         'wifite2',
         'wifite2/attack',

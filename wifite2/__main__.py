@@ -53,19 +53,21 @@ class Wifite(object):
             Configuration.get_monitor_mode_interface()
             self.scan_and_attack()
 
-def print_banner(self):
-    '''Displays the CyberDK banner.'''
-    Color.pl('')
-    Color.pl('{R} ██████╗ ██╗  ██╗ ██████╗   ██████╗ ██████╗  ██████╗  ██╗  ██╗{W}')
-    Color.pl('{R}██╔════╝ ╚██╗██╔╝ ██╔══██╗ ██╔════╝ ██╔══██╗ ██╔══██╗ ██║ ██╔╝{W}')
-    Color.pl('{R}██║       ╚███╔╝  ██████╔╝ █████╗   ██████╔╝ ██║  ██║ █████╔╝ {W}')
-    Color.pl('{R}██║       ██╔██╗  ██╔══██╗ ██╔══╝   ██╔══██╗ ██║  ██║ ██╔═██╗ {W}')
-    Color.pl('{R}╚██████╗ ██╔╝ ██╗ ██████╔╝ ██████╗  ██║  ██║ ██████╔╝ ██║  ██╗{W}')
-    Color.pl('{R} ╚═════╝ ╚═╝  ╚═╝ ╚═════╝  ╚═════╝  ╚═╝  ╚═╝ ╚═════╝  ╚═╝  ╚═╝{W}')
-    Color.pl('')
-    Color.pl('{G}           CyberDK - Automated Wireless Auditor{W}')
-    Color.pl('{C}        https://github.com/CyberDanish/wifite2  {W}')
-    Color.pl('')
+
+    def print_banner(self):
+        '''Displays the CyberDK banner.'''
+        Color.pl('')
+        Color.pl('{R} ██████╗ ██╗  ██╗ ██████╗   ██████╗ ██████╗  ██████╗  ██╗  ██╗{W}')
+        Color.pl('{R}██╔════╝ ╚██╗██╔╝ ██╔══██╗ ██╔════╝ ██╔══██╗ ██╔══██╗ ██║ ██╔╝{W}')
+        Color.pl('{R}██║       ╚███╔╝  ██████╔╝ █████╗   ██████╔╝ ██║  ██║ █████╔╝ {W}')
+        Color.pl('{R}██║       ██╔██╗  ██╔══██╗ ██╔══╝   ██╔══██╗ ██║  ██║ ██╔═██╗ {W}')
+        Color.pl('{R}╚██████╗ ██╔╝ ██╗ ██████╔╝ ██████╗  ██║  ██║ ██████╔╝ ██║  ██╗{W}')
+        Color.pl('{R} ╚═════╝ ╚═╝  ╚═╝ ╚═════╝  ╚═════╝  ╚═╝  ╚═╝ ╚═════╝  ╚═╝  ╚═╝{W}')
+        Color.pl('')
+        Color.pl('{G}           CyberDK - Automated Wireless Auditor{W}')
+        Color.pl('{C}        https://github.com/CyberDanish/wifite2  {W}')
+        Color.pl('')
+
 
     def scan_and_attack(self):
         '''

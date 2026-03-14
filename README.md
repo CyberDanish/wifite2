@@ -26,7 +26,7 @@ Wifite2 is a powerful Python script for auditing wireless networks. It automates
 **Required:**
 - Python 2.7+ or 3.x
 - Aircrack-ng suite (airmon-ng, airodump-ng, aireplay-ng, aircrack-ng, packetforge-ng)
-- iwconfig and ifconfig
+- iw or iwconfig, ip or ifconfig
 
 **Recommended:**
 - tshark (Wireshark) for WPS detection

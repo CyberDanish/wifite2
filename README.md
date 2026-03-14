@@ -1,4 +1,4 @@
-<pre align="center">
+﻿<pre align="center">
  ██████╗ ██╗  ██╗ ██████╗   ██████╗ ██████╗  ██████╗  ██╗  ██╗
 ██╔════╝ ╚██╗██╔╝ ██╔══██╗ ██╔════╝ ██╔══██╗ ██╔══██╗ ██║ ██╔╝
 ██║       ╚███╔╝  ██████╔╝ █████╗   ██████╔╝ ██║  ██║ █████╔╝
@@ -15,25 +15,39 @@
 
 ---
 
-**Automated Wireless Network Auditor**
+# Wifite2 - Automated Wireless Penetration Testing Tool
 
-Wifite2 is a powerful Python script for auditing wireless networks. It automates the process of capturing and cracking WEP, WPA, and WPS encrypted networks using various attack methods.
+[![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](LICENSE)
+[![Python 2.7+ / 3.x](https://img.shields.io/badge/Python-2.7%2B%20%7C%203.x-brightgreen.svg)](https://www.python.org/downloads/)
+[![Kali Linux](https://img.shields.io/badge/Kali-Linux-268BEE.svg)](https://www.kali.org/)
+[![Stars](https://img.shields.io/github/stars/CyberDanish/wifite2?style=social)](https://github.com/CyberDanish/wifite2/stargazers)
 
-## Features
+> **Wifite2** is a fast, automated wireless auditing tool for security researchers and authorized penetration testers. It streamlines **WEP/WPA/WPA2 handshake capture**, **WPS Pixie-Dust**, and **PMKID** workflows with a modular Python codebase, optimized scan and attack loops, and clean, readable output.
 
-- **WPS Attacks**: Pixie-Dust offline attack and PIN brute-force attack
-- **WPA Attacks**: Handshake capture and PMKID hash capture with offline cracking
-- **WEP Attacks**: Multiple methods including fragmentation, chop-chop, and replay attacks
-- **Fast Scanning**: Real-time target discovery with power levels
-- **Optimized Performance**: Reduced timeouts for quicker attack cycles
-- **Cross-Platform**: Works on Kali Linux and other penetration testing distributions
-- **Educational**: Verbose mode shows executed commands for learning
+**Search Keywords:** `wifite2` `wireless-audit` `wifi-pentest` `wpa2-cracker` `wep-cracker` `wps-attack` `pmkid-capture` `kali-linux-tools` `python-security` `ethical-hacking` `penetration-testing`
+
+---
+
+## Key Features
+
+| Feature | Description |
+|---------|-------------|
+| **WPA/WPA2** | Automated handshake capture and verification |
+| **WPS Attack Suite** | Pixie-Dust offline + PIN brute-force (Reaver/Bully) |
+| **PMKID Support** | Capture PMKID hashes without client deauth |
+| **Fast Scanning** | Real-time target discovery with signal and channel filtering |
+| **Modular Python** | Clean, extensible codebase for custom integrations |
+| **Linux Focused** | Built for Kali and other penetration testing distros |
+| **Clean Output** | Standard capture artifacts (pcap, csv, txt) for downstream tools |
+| **Debug Mode** | Verbose logging for learning and troubleshooting |
+
+---
 
 ## Requirements
 
 ### Hardware
 - Wireless card supporting Monitor Mode and packet injection
-- Compatible cards: [Check compatibility](http://www.aircrack-ng.org/doku.php?id=compatible_cards)
+- Compatible cards: http://www.aircrack-ng.org/doku.php?id=compatible_cards
 
 ### Software
 **Required:**
@@ -48,20 +62,24 @@ Wifite2 is a powerful Python script for auditing wireless networks. It automates
 - hashcat for PMKID cracking
 - hcxdumptool and hcxpcaptool for PMKID capture
 
+---
+
 ## Installation
 
-### Quick Install
+### Quick Install (Recommended)
 ```bash
 git clone https://github.com/CyberDanish/wifite2.git
 cd wifite2
-sudo python setup.py install
+sudo python3 setup.py install
 sudo wifite2
 ```
 
-### Alternative Installation
+### Alternative Install
 ```bash
 pip install .
 ```
+
+---
 
 ## Usage
 
@@ -81,13 +99,17 @@ sudo wifite2 --help
 - Use PMKID only: `sudo wifite2 --pmkid`
 - Crack existing handshake: `sudo wifite2 --crack`
 
+---
+
 ## Attack Methods
 
-1. **WPS Pixie-Dust**: Fast offline attack against vulnerable WPS implementations
-2. **WPS PIN Attack**: Brute-force WPS PIN with optimized timing
-3. **PMKID Capture**: Capture PMKID hashes for offline cracking
-4. **Handshake Capture**: Deauthenticate clients to capture WPA handshakes
-5. **WEP Attacks**: Various injection-based attacks
+1. WPS Pixie-Dust: Fast offline attack against vulnerable WPS implementations
+2. WPS PIN Attack: Brute-force WPS PIN with optimized timing
+3. PMKID Capture: Capture PMKID hashes for offline cracking
+4. Handshake Capture: Deauthenticate clients to capture WPA handshakes
+5. WEP Attacks: Fragmentation, chop-chop, and replay attacks
+
+---
 
 ## Performance Optimizations
 
@@ -96,16 +118,22 @@ sudo wifite2 --help
 - Real-time target refresh every second
 - Parallel attack validation
 
+---
+
 ## Troubleshooting
 
 - Ensure wireless card supports injection
-- Run as root/sudo
-- Update Aircrack-ng to latest version
+- Run as root or sudo
+- Update Aircrack-ng to the latest version
 - Check dependencies with verbose mode: `wifite2 -v`
+
+---
 
 ## Disclaimer
 
-This tool is for educational and authorized testing purposes only. Use responsibly and in compliance with local laws.
+This tool is for educational and authorized security testing only. Use responsibly and in compliance with local laws.
+
+---
 
 ## License
 

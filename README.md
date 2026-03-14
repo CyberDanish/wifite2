@@ -1,24 +1,21 @@
-# Wifite2
-
-<pre>
+<pre align="center">
  ██████╗ ██╗  ██╗ ██████╗   ██████╗ ██████╗  ██████╗  ██╗  ██╗
 ██╔════╝ ╚██╗██╔╝ ██╔══██╗ ██╔════╝ ██╔══██╗ ██╔══██╗ ██║ ██╔╝
-██║       ╚███╔╝  ██████╔╝ █████╗   ██████╔╝ ██║  ██║ █████╔╝ 
-██║       ██╔██╗  ██╔══██╗ ██╔══╝   ██╔══██╗ ██║  ██║ ██╔═██╗ 
+██║       ╚███╔╝  ██████╔╝ █████╗   ██████╔╝ ██║  ██║ █████╔╝
+██║       ██╔██╗  ██╔══██╗ ██╔══╝   ██╔══██╗ ██║  ██║ ██╔═██╗
 ╚██████╗ ██╔╝ ██╗ ██████╔╝ ██████╗  ██║  ██║ ██████╔╝ ██║  ██╗
  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝  ╚═════╝  ╚═╝  ╚═╝ ╚═════╝  ╚═╝  ╚═╝
 </pre>
 
 <h3 align="center">CyberDK - Automated Wireless Auditor</h3>
 <p align="center">
-  <a href="https://github.com/CyberDanish/wifite2">
-    https://github.com/CyberDanish/wifite2
-  </a>
+  <strong>Created by</strong> @CyberDanish<br>
+  <a href="https://github.com/CyberDanish/wifite2">https://github.com/CyberDanish/wifite2</a>
 </p>
 
-**Automated Wireless Network Auditor**
+---
 
-Created by [@CyberDanish](https://github.com/CyberDanish)
+**Automated Wireless Network Auditor**
 
 Wifite2 is a powerful Python script for auditing wireless networks. It automates the process of capturing and cracking WEP, WPA, and WPS encrypted networks using various attack methods.
 
